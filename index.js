@@ -1,6 +1,5 @@
 const search = require('./apps/youtube/search');
 const download = require('./apps/youtube/download');
-const fs = require('fs');
 
 const express = require('express');
 const app = express();
@@ -13,7 +12,6 @@ function startup() {
     app.use(bodyParser.json());
 
     app.get('/search', (req, res) => {
-        console.log(typeof req.body);
         search({ query: req.query.videoTitle })
             .then(results => res.send({ videos: results.videos }))
             .catch(err => {
@@ -23,7 +21,6 @@ function startup() {
     });
 
     app.get('/download', (req, res) => {
-        console.log(typeof req.body);
         download(req.query.url)
             .then(file => {
                 let path = require('path').join(__dirname, file.path);
@@ -35,7 +32,11 @@ function startup() {
             });
     });
 
-    app.get('/file', (req, res) => res.sendFile(`E:/JavaScript Projects/services/test.${req.query.type}`));
+    app.get('/file', (req, res) => res.sendFile(`E:/JavaScript Projects/services/test_files/test.${req.query.type}`));
+
+    require('./apps/stubs/athena').startup(app);
+    require('./apps/stubs/database').startup(app);
+    require('./apps/stubs/converter').startup(app);
 
     app.listen(8080, () => {
         console.log(`Web server running.\nNavigate to localhost:8080`);

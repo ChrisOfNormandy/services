@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+    <name>
+        This is a name.
+    </name>
+    <data>
+        This is some data.
+    </data>
+</xml>
