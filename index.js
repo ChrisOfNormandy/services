@@ -37,6 +37,7 @@ function startup() {
     require('./apps/stubs/athena').startup(app);
     require('./apps/stubs/database').startup(app);
     require('./apps/stubs/converter').startup(app);
+    require('./apps/stubs/drones').startup(app);
 
     app.listen(8080, () => {
         console.log(`Web server running.\nNavigate to localhost:8080`);

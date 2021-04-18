@@ -28,7 +28,6 @@ function startup(app) {
             }
         }
 
-        console.log(data);
         res.contentType('application/json');
         res.send(data);
     });
@@ -54,20 +53,19 @@ function startup(app) {
             }
         }
 
-        console.log(data);
         res.contentType('text/xml');
         res.send(data);
     });
 
     app.post('/stubs/converter/metadata', (req, res) => {
-        let data = cvt.json2xml(JSON.stringify({
-            "altitude": 64,
-            "latitude": 0,
-            "longitude": 0,
-            "heading": 180
-        }), { compact: true, spaces: 4 });
-        console.log(data);
-        res.contentType('text/xml');
+        let data = {
+            "altitude": Math.floor(Math.random() * 10000),
+            "latitude": Math.floor(Math.random() * 180) - 90,
+            "longitude": Math.floor(Math.random() * 360) - 180,
+            "heading": Math.floor(Math.random() * 360)
+        };
+        
+        res.contentType('application/json');
         res.send(data);
     })
 }

@@ -10,6 +10,8 @@ function startup(app) {
                 let q = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
                 if (!!q.name && !!q.type && !!q.data)
                     value = q.data;
+                else
+                    value = q;
             }
             catch {
                 value = req.body;
@@ -19,7 +21,6 @@ function startup(app) {
                 map.set(req.query.table, {});
             map.get(req.query.table)[req.query.column] = value;
 
-            console.log(map.get(req.query.table));
             res.send('Success');
         }
     });
@@ -31,10 +32,12 @@ function startup(app) {
             if (!map.has(req.query.table))
                 res.send(`Table not found: ${req.query.table}`);
             else {
-                if (!!req.query.column)
-                    res.send(map.get(req.query.table)[req.query.column]);
-                else
-                    res.send(map.get(req.query.table));
+                let value = (!!req.query.column)
+                    ? map.get(req.query.table)[req.query.column]
+                    : map.get(req.query.table);
+
+                res.contentType('application/json');
+                res.send(value);
             }
         }
     });
