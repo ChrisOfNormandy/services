@@ -8,7 +8,7 @@ function startup(app) {
     app.post('/stubs/athena/query', (req, res) => {
         let col = req.query.col || null;
         let json = {};
-
+console.log(req.body, col);
         if (!!req.body.data && accepted.includes(req.body.type)) {
             if (req.body.type !== 'application/json') {
                 let cols = req.body.data.split('\n');
@@ -61,7 +61,7 @@ function startup(app) {
                 }
             }
         }
-
+console.log(json)
         res.contentType('application/json');
         res.send(json);
     });

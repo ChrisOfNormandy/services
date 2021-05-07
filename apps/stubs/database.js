@@ -25,7 +25,7 @@ function startup(app) {
         }
     });
 
-    app.post('/stubs/database/select', (req, res) => {
+    app.get('/stubs/database/select', (req, res) => {
         if (!req.query.table)
             res.send(`Check input syntax; table=false`);
         else {             
@@ -35,7 +35,7 @@ function startup(app) {
                 let value = (!!req.query.column)
                     ? map.get(req.query.table)[req.query.column]
                     : map.get(req.query.table);
-
+                
                 res.contentType('application/json');
                 res.send(value);
             }

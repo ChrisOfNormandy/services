@@ -58,15 +58,8 @@ function startup(app) {
     });
 
     app.post('/stubs/converter/metadata', (req, res) => {
-        let data = {
-            "altitude": Math.floor(Math.random() * 10000),
-            "latitude": Math.floor(Math.random() * 180) - 90,
-            "longitude": Math.floor(Math.random() * 360) - 180,
-            "heading": Math.floor(Math.random() * 360)
-        };
-        
         res.contentType('application/json');
-        res.send(data);
+        res.send(req.body);
     })
 }
 
